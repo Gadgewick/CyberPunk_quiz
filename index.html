@@ -9,43 +9,28 @@
     <title>CyberPunk Quiz App</title>
 </head>
 <body>
-    
+
     <div class="HUD" id = "GameTitle">CyberPunk Quiz</div>
     <div class="HUD" id = "Score">Score: <span class="scoreTotal">0</span></div>
-    <div class="HUD" id = "QuestionNumber">Question: <span class="questionOutOfHowMany">0</span>/10</div>
-    <section id="container">
+    <div class="HUD" id = "questionNumber">Question: <span class="questionOutOfHowMany">0</span>/10</div>
+    
+    <section class="container">
         <section class='startScreen'>
             <div>
-                <button type="button"  class="startButton"><a href="">Start Quiz</a> </button>
-            </div>
-            <a class="hidden" href="https://www.theguardian.com/books/2014/jul/28/william-gibson-neuromancer-cyberpunk-books" target="_blank" class="links">Learn More Here!</a>
-            <div>
-                <button type="button" class="hidden" id="next"><a href="scoreScreen.html">next</a></button>
+                <button type="button"  class="startButton">Start Quiz</button>
             </div>
         </section>
         <section class="questionBox">
-            <legend  id = "questionType">The Question?</legend>
-            <form id ="answers">
-                <div>
-                <input type="radio" name="answers"  >
-                <label>answers1</label>
-                </div>
-                <div>
-                <input type="radio" name="answers">
-                <label>answers2</label>
-                </div>
-                <div>
-                <input type="radio" name="answers">
-                <label>answers3</label>
-                </div>
-                <div>
-                <input type="radio" name="answers">
-                <label>answers4</label>
-                </div>
-                <button type="button" id="submit">submit</button>
+            <form>
+                
             </form>
         </section>
+        <section class= "response">
+        </section>
+        <section class= "finalScore">
+        </section>
     </section>
+<div class = "bg-image"></div>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
     <script src="index.js"></script>

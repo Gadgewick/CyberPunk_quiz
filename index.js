@@ -12,32 +12,32 @@ const STORE = [
     {
         question: 'Cyberpunk can be first seen in the ______.',
         answers: [
-            "1960's",
-            "1980's",
-            "1970's",
-            "1940's"
+            `1960's`,
+            `1980's`,
+            `1970's`,
+            `1940's`
         ],
         correctAnswer: "1980's"
     },
     {
         question: 'One of the Early films of Cyberpunk is _________.',
         answers: [
-            '"Terminator"',
-            '"Blade Runner"',
-            '"Star Wars"',
-            '"Tron"'
+            `Terminator`,
+            `Blade Runner`,
+            `Star Wars`,
+            `Tron`
         ],
-        correctAnswer: '"Blade Runner"'
+        correctAnswer: `Blade Runner`
     },
     {
         question: 'Central themes include: ',
         answers: [
-            'Augmentation, MegaCorporations and Desperation',
-            'Space Ships, Explosions and Light Sabers',
-            "Bombs, Guns and Rock'n'Roll",
-            'Candle Light, Long Walks and Beaches'
+            `Augmentation, MegaCorporations and Desperation`,
+            `Space Ships, Explosions and Light Sabers`,
+            `Bombs, Guns and Rock'n'Roll`,
+            `Candle Light, Long Walks and Beaches`
         ],
-        correctAnswer: 'Augmentation, MegaCorporations and Desperation'
+        correctAnswer: `Augmentation, MegaCorporations and Desperation`
     },
     {
         question: 'Protagonist tend to be __________.',
@@ -52,56 +52,57 @@ const STORE = [
     {
         question: 'An oft-quoted maxim by Sterling:',
         answers: [
-            '"Live long and prosper."',
-            '"Carpe Noctem."',
-            '"Death, Sex, and Robots."',
-            '"Lowlife and high-tech."'
+            `Live long and prosper.`,
+            `Carpe Noctem.`,
+            `Death, Sex, and Robots.`,
+            `Lowlife and high-tech.`
         ],
-        correctAnswer: '"Lowlife and high-tech."'
+        correctAnswer: `Lowlife and high-tech.`
     },
     {
         question: 'One of the first Cyberpunk themed games was a tabletop game called _______ that came out in _____.',
         answers: [
-            '"Cyberpunk", 1988',
-            '"Bits and Pieces", 1986',
-            '"Robo Hunter", 1987',
-            '"Shadowrun", 1968'
+            `Cyberpunk, 1988`,
+            `Bits and Pieces, 1986`,
+            `Robo Hunter, 1987`,
+            `Shadowrun, 1968`
         ],
-        correctAnswer: '"Cyberpunk", 1988'
+        correctAnswer: `Cyberpunk, 1988`
     },
     {
         question: 'Cyberpunk was popularized by the novel __________.',
         answers: [
-            '"Altered Carbon" by Richard Morgan',
-            '"Snow Crash" by Neal Stephenson',
-            '"Neuromancer" by William Gibson',
-            '"Do Androids Dream of Electric Sheep?" by Philip K. Dick' 
+            `Altered Carbon by Richard Morgan`,
+            `Snow Crash by Neal Stephenson`,
+            `Neuromancer by William Gibson`,
+            `Do Androids Dream of Electric Sheep? by Philip K. Dick` 
         ],
-        correctAnswer: '"Neuromancer" by William Gibson'
+        correctAnswer: `Neuromancer by William Gibson`
     },
     {
         question: 'Cyberpunk took off in japan, later inspiring the animated movie ___________.',
         answers: [
-            '"Space Dandy"',
-            '"Evangelion"',
-            '"Power Rangers"',
-            '"Akira"'
+            `Space Dandy`,
+            `Evangelion`,
+            `Power Rangers`,
+            `Akira`
         ],
-        correctAnswer: '"Akira"'
+        correctAnswer: `Akira`
     },
     {
         question: 'Cyberpunk today has had a pop culture boom with new sequels to "Blade Runner" and "The Matrix". Another classic tabletop is having a new videogame adaptation called ________.',
         answers: [
-            '"Cyberpunk 2077"',
-            '"Shadowrun: One Last Job"',
-            '"Fallout Prequel"',
-            '"Unnamed Android Project"'
+            `Cyberpunk 2077`,
+            `Shadowrun: One Last Job`,
+            `Fallout Prequel`,
+            `Unnamed Android Project`
         ],
-        correctAnswer: '"Cyberpunk 2077"'
+        correctAnswer: `Cyberpunk 2077`
     },
 ];
- 
-console.log('outside function')
+
+//static elements
+console.log('outside function');
 let score = 0;
 let questionNumber = 0;
 
@@ -113,40 +114,166 @@ function updateScore() {
 
 function updateQuestionNumber() {
     questionNumber++;
-    $('.questionNumber').text(questionNumber + 1);
+    $('#questionNumber').text('Question: ' + questionNumber + '/10');
 }
 
-function resetStats() {
-  score = 0;
-  questionNumber = 0;
-  $('.score').text(0);
-  $('.questionNumber').text(0);
+function reset() {
+    score = 0;
+    questionNumber = 0;
+    $('.scoreTotal').text(0);
+    $('#questionNumber').text('Question: ' + questionNumber + '/10');
+
 }
 
+//button elements
 function startQuiz() {
     $('.startScreen').on('click', '.startButton', function() {
         event.preventDefault();
-        console.log ( 'button is clicked');
-        $(this).hide();
-        $('.questionNumber').text(1);
+        console.log ( 'start button is clicked');
+        $('.startScreen').hide();
+
         $('.questionBox').show('slow');
-        //$('.questionBox').prepend(generateQuestion());
+        createForm(questionNumber);
     });
+}
+
+function submitQuizQuestion() {
+    $('.questionBox').on('click', '.submitButton', function(event) {
+        event.preventDefault();
+        console.log ( 'submit button is clicked');
+        $('.questionBox').hide();
+        
+        let answer = $('input:radio[name=answers]:checked').val();
+        let correct = STORE[questionNumber].correctAnswer;
+        if (answer === correct) {
+            correctScreen();
+            $('.response').show();
+        } else {
+            wrongScreen();
+            $('.response').show();
+        };
+    });
+}
+
+function nextQuestion() {
+    $('.response').on('click', '.nextButton', function(event) {
+        event.preventDefault();
+        console.log ( 'next button is clicked');
+        $('.response').hide();
+        $('.questionBox').show('slow');
+        updateQuestionNumber();
+        if (questionNumber >= 10) {
+            finalScore();
+            $('.questionBox').hide();
+        } else {
+        createForm(questionNumber);
+        };
+        
+
+    });
+}
+
+function correctScreen() {
+    $('.response').html(
+        `<h3 class="headline">Your answer is correct!</h3>
+        <img src="images/correct.jpg" alt= "five light bulbs hitting one another" class= "image">
+        <p id="material"><a href="">You can learn more here!</a></p>
+        <button type="button" class="nextButton">Next</button>`
+    );
+    updateScore();
+}
+
+function wrongScreen() {
+    $('.response').html(
+        `<h3 class="headline">Your answer is incorrect...</h3>
+        <img src="images/wrong.jpg" alt= "dunking a lemon" class= "image">
+        <p id="material"><a href="">You can learn more here!</a></p>
+        <button type="button" class="nextButton">Next</button>`
+    )
 }
 
 function createForm(questionIndex) {
     let formMaker = $(`<form>
-    <fieldset>
-    <legend class= "questionText">${STORE[questionIndex].question}</legend>
-    </fieldset>
-    </form>`)
+            <legend class= "headline">${STORE[questionIndex].question}</legend>
+                <div>
+                    <input type="radio"  name="answers" value="${STORE[questionIndex].answers[0]}"  >
+                    <label class="answers">${STORE[questionIndex].answers[0]}</label>
+                    </div>
+                    <div>
+                    <input type="radio"  name="answers" value="${STORE[questionIndex].answers[1]}">
+                    <label class="answers">${STORE[questionIndex].answers[1]}</label>
+                    </div>
+                    <div>
+                    <input type="radio"  name="answers" value="${STORE[questionIndex].answers[2]}">
+                    <label class="answers">${STORE[questionIndex].answers[2]}</label>
+                    </div>
+                    <div>
+                    <input type="radio"  name="answers" value="${STORE[questionIndex].answers[3]}">
+                    <label class="answers">${STORE[questionIndex].answers[3]}</label>
+                </div>
+                <button type="button" class="submitButton">submit</button>
+    </form>`);
 
-    let fieldSelector = $(formMaker).find('fieldset');
+    //let fieldSelector = $(formMaker).find('fieldset');
 
-    $()
+    $('form').replaceWith(formMaker);
+
+
 }
+
+function finalScore() {
+    $('.finalScore').show();
+
+    let ab= [
+        "Are you part machine!?",
+        "images/great.jpg",
+        "Neon Robot chillin with drinks and chips",
+    ];
+
+    let cd= [
+        "You know your way around cyberspace.... or at least google",
+        "images/passing.jpg",
+        "Girl touching hologram screen",
+    ];
+    
+    let f= [
+        "Are you suffering from Cyberpsychosis? You don't even know what that means...",
+        "images/fail.jpg",
+        "Blurry man surrounded by neon",
+    ];
+
+    if (score >= 8) {
+        array = ab;
+    } else if (score < 8 && score >= 4) {
+        array = cd;
+    } else {
+        array = f;
+    }
+    return $('.finalScore').html(
+        `<h3 class ="headline">${array[0]}</h3>
+        <img src="${array[1]}" alt="${array[2]}" class="images">
+            <h3 class ="headline">Your score is ${score}</h3>
+            <button type="button" class="restartButton">Restart</button>`
+    );
+}
+
+function restartQuiz() {
+    $('.finalScore').on('click', '.restartButton', function(event) {
+        event.preventDefault();
+        console.log ( 'restart button is clicked'); 
+        reset();
+        $('.finalScore').hide();
+        $('.startScreen').show();
+    });
+}
+
+
+
 function makeQuiz() {
     startQuiz();
+    submitQuizQuestion();
+    nextQuestion();
+    restartQuiz();
 }
 
 $(makeQuiz);
