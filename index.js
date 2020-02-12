@@ -132,7 +132,7 @@ function startQuiz() {
         console.log ( 'start button is clicked');
         $('.startScreen').hide();
 
-        $('.questionBox').show('slow');
+        $('.questionBox').fadeIn('slow');
         createForm(questionNumber);
     });
 }
@@ -140,17 +140,24 @@ function startQuiz() {
 function submitQuizQuestion() {
     $('.questionBox').on('click', '.submitButton', function(event) {
         event.preventDefault();
-        console.log ( 'submit button is clicked');
-        $('.questionBox').hide();
-        
+        console.log ( 'submit button is clicked');        
         let answer = $('input:radio[name=answers]:checked').val();
         let correct = STORE[questionNumber].correctAnswer;
+        if (!answer) {
+            alert("At least guess...");
+            return;
+        }
+        $('.questionBox').hide();
+        
+
+        
+        
         if (answer === correct) {
             correctScreen();
-            $('.response').show();
+            $('.response').fadeIn(50);
         } else {
             wrongScreen();
-            $('.response').show();
+            $('.response').fadeIn(50);
         };
     });
 }
@@ -159,7 +166,7 @@ function nextQuestion() {
     $('.response').on('click', '.nextButton', function(event) {
         event.preventDefault();
         console.log ( 'next button is clicked');
-        $('.response').hide();
+        $('.response').fadeOut(50);
         $('.questionBox').show('slow');
         updateQuestionNumber();
         if (questionNumber >= 10) {
@@ -177,7 +184,6 @@ function correctScreen() {
     $('.response').html(
         `<h3 class="headline">Your answer is correct!</h3>
         <img src="images/correct.jpg" alt= "five light bulbs hitting one another" class= "image">
-        <p id="material"><a href="">You can learn more here!</a></p>
         <button type="button" class="nextButton">Next</button>`
     );
     updateScore();
@@ -187,7 +193,7 @@ function wrongScreen() {
     $('.response').html(
         `<h3 class="headline">Your answer is incorrect...</h3>
         <img src="images/wrong.jpg" alt= "dunking a lemon" class= "image">
-        <p id="material"><a href="">You can learn more here!</a></p>
+        <h3 class="headline">The correct answer is ${STORE[questionNumber].correctAnswer}</h3>
         <button type="button" class="nextButton">Next</button>`
     )
 }
@@ -195,7 +201,8 @@ function wrongScreen() {
 function createForm(questionIndex) {
     let formMaker = $(`<form>
             <legend class= "headline">${STORE[questionIndex].question}</legend>
-                <div>
+                <div class="answers">
+                    <div>
                     <input type="radio"  name="answers" value="${STORE[questionIndex].answers[0]}"  >
                     <label class="answers">${STORE[questionIndex].answers[0]}</label>
                     </div>
@@ -210,6 +217,7 @@ function createForm(questionIndex) {
                     <div>
                     <input type="radio"  name="answers" value="${STORE[questionIndex].answers[3]}">
                     <label class="answers">${STORE[questionIndex].answers[3]}</label>
+                    </div>
                 </div>
                 <button type="button" class="submitButton">submit</button>
     </form>`);
@@ -251,7 +259,7 @@ function finalScore() {
     }
     return $('.finalScore').html(
         `<h3 class ="headline">${array[0]}</h3>
-        <img src="${array[1]}" alt="${array[2]}" class="images">
+        <img src="${array[1]}" alt="${array[2]}" class="image">
             <h3 class ="headline">Your score is ${score}</h3>
             <button type="button" class="restartButton">Restart</button>`
     );

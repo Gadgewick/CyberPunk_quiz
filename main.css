@@ -14,6 +14,7 @@
     #container {
         min-width: 200px;
         -webkit-margin-top-collapse: collapse;
+        max-height: 10px;
     }
 
     .HUD {
@@ -21,6 +22,9 @@
         color: white;
         padding: 20px;
         border-radius: 10px;
+    }
+    .image {
+        max-height: 5%;
     }
   }
   
@@ -39,14 +43,14 @@
     }
   }
   
-.bg-image {
+body{
     background-image: url("images/bgImage.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    height: 110%;
-    filter: blur(8px);
-    -webkit-filter: blur(8px);
+    background-color: darkslategray;
+    height: 120%;
+    width: auto;
 }
 
 
@@ -56,15 +60,18 @@
     margin:200px auto;
     border-radius: 10px;
     font-family: 'Teko', sans-serif;
-    background: darkgrey ;
+    background: rgba(10,189,198, 0.95);
     color: white;
     border-radius: 10px;
     overflow: auto;
+    outline: 4px solid snow;
+    outline-offset: 10px;
 }
+
 
 .HUD {
     font-family: 'Teko', sans-serif;
-    background: darkgrey ;
+    background: rgba(10,189,198, 0.8);
     color: white;
     padding: 20px;
     border-radius: 10px;
@@ -72,7 +79,7 @@
 
 /*Button styles*/
 .startButton {
-    background-color: slategray;
+    background-color: rgb(9,24,51);
     color: snow;
     width: 40%;
     margin-left: 30%;
@@ -80,11 +87,11 @@
     margin-top: 10%;
     margin-bottom: 10%;
     font-size: 35px;
-    padding: 30px;
+    padding: 15px;
 }
 
 .submitButton{
-    background-color: slategray;
+    background-color: rgb(9,24,51);
     color: snow;
     width: fit-content;
     font-size: 20px;
@@ -97,7 +104,7 @@
 }
 
 .nextButton{
-    background-color: slategray;
+    background-color: rgb(9,24,51);
     color: snow;
     width: fit-content;
     font-size: 20px;
@@ -110,7 +117,7 @@
 }  
     
 .restartButton{
-    background-color: slategray;
+    background-color: rgb(9,24,51);
     color: snow;
     width: fit-content;
     font-size: 20px;
@@ -161,40 +168,35 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 10px;
 }
 
 .answers {
     font-size: 25px;
+    position: relative
 }
 
-img {
-    width: 300px;
+
+.image {
+    display: block;
+    max-width: 30%;
+    height: auto;
     padding: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 div {
     padding: 8px;
 }
  
-#material {
+/*#material {
     font-size: 25px;
     display: flex;
     justify-content: center;
     align-items: center;
-}    
+}*/    
 
-#container > img {
-    max-width: 300px;
-    margin-left: auto;
-    margin-right: auto;
-    display: flex;
-    justify-content: center;
-    margin-top: 45px;
-}
 
 
 /*Link styles*/
