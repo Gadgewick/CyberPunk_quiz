@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="main.css">
     <link href="https://fonts.googleapis.com/css?family=Teko&display=swap" rel="stylesheet">
     <title>CyberPunk Quiz App</title>
 </head>
 <body>
-
+    <div class = "bg-image"></div>
     <div class="HUD" id = "GameTitle">CyberPunk Quiz</div>
     <div class="HUD" id = "Score">Score: <span class="scoreTotal">0</span></div>
     <div class="HUD" id = "questionNumber">Question: <span class="questionOutOfHowMany">0</span>/10</div>
@@ -17,7 +17,7 @@
     <section class="container">
         <section class='startScreen'>
             <div>
-                <button type="button"  class="startButton">Start Quiz</button>
+                <button type="button" class="startButton">Start Quiz</button>
             </div>
         </section>
         <section class="questionBox">
@@ -30,6 +30,7 @@
         <section class= "finalScore">
         </section>
     </section>
+
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
     <script src="index.js"></script>
